@@ -1,5 +1,12 @@
 ﻿@model IEnumerable<MvcPersonajesExamenTemplate.Models.Personaje>
 
+
+@{
+    string UrlBucket =
+    configuration.GetValue<string>("AWS:S3BucketUrl");
+}
+
+
 @{
     ViewData["Title"] = "Index";
 }

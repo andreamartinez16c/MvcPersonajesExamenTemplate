@@ -7,9 +7,11 @@ namespace MvcPersonajesExamenTemplate.Controllers
     public class PersonajesController : Controller
     {
         private ServiceApiPersonajes service;
-        public PersonajesController(ServiceApiPersonajes service)
+        private ServiceStorageAWS serviceStorage;
+        public PersonajesController(ServiceApiPersonajes service, ServiceStorageAWS serviceStorage)
         {
             this.service = service;
+            this.serviceStorage = serviceStorage;
         }
         public async Task<IActionResult> Index()
         {
@@ -30,8 +32,15 @@ namespace MvcPersonajesExamenTemplate.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Personaje personaje)
+        public async Task<IActionResult> Create(Personaje personaje, IFormFile file)
         {
+            personaje.Imagen = file.FileName;
+            using (Stream stream = file.OpenReadStream())
+            {
+                await this.serviceStorage.UploadFileAsync
+                    (file.FileName, stream);
+            }
+
             await this.service.CreatePersonajeAsync(personaje);
             return RedirectToAction("Index");
         }
