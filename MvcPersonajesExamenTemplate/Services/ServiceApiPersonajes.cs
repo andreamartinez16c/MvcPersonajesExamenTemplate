@@ -9,10 +9,11 @@ namespace MvcPersonajesExamenTemplate.Services
         private string UrlApi;
         private MediaTypeWithQualityHeaderValue header;
 
-        public ServiceApiPersonajes(IConfiguration configuration)
+        public ServiceApiPersonajes(KeysModel keys)
         {
-            this.UrlApi = configuration.GetValue<string>
-                ("ApiUrls:ApiPersonajesAWS");
+            /*this.UrlApi = configuration.GetValue<string>
+                ("ApiUrls:ApiPersonajesAWS");*/
+            this.UrlApi = keys.ApiPersonajes;
             this.header = new MediaTypeWithQualityHeaderValue
                 ("application/json");
         }

@@ -1,5 +1,6 @@
 ﻿using Amazon.S3.Model;
 using Amazon.S3;
+using MvcPersonajesExamenTemplate.Models;
 
 namespace MvcPersonajesExamenTemplate.Services
 {
@@ -9,10 +10,11 @@ namespace MvcPersonajesExamenTemplate.Services
         private string BucketName;
 
         public ServiceStorageAWS
-            (IConfiguration configuration, IAmazonS3 client)
+            (KeysModel keys, IAmazonS3 client)
         {
-            this.BucketName =
-                configuration.GetValue<string>("AWS:S3BucketName");
+            /*this.BucketName =
+                configuration.GetValue<string>("AWS:S3BucketName");*/
+            this.BucketName = keys.BucketName;
             this.client = client;
         }
 
